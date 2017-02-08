@@ -1,0 +1,580 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sunfrog Shirts Editor</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/colpick.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-tagsinput.css"/>
+
+    <script src="js/lib/jquery-2.1.1.min.js" type="text/javascript" defer></script>
+    <script src="js/lib/bootstrap.min.js" type="text/javascript" defer></script>
+    <script src="js/lib/colpick.js" type="text/javascript" defer></script>
+    <script src="js/lib/svg.js" type="text/javascript" defer></script>
+    <script src="js/lib/svg.draggable.min.js" type="text/javascript" defer></script>
+    <script src="js/lib/svg.parser.min.js" type="text/javascript" defer></script>
+    <script src="js/lib/svg.export.min.js" type="text/javascript" defer></script>
+    <script src="js/lib/svg.inport.js" type="text/javascript" defer></script>
+
+    <script src="js/lib/underscore-min.js" type="text/javascript" defer></script>
+    <script src="js/lib/knockout-3.2.0.js" type="text/javascript" defer></script>
+    <script src="js/lib/bootstrap-tagsinput.min.js" defer></script>
+    <script src="js/svgChanges.js" type="text/javascript" defer></script>
+    <script src="js/knockout.js" type="text/javascript" defer></script>
+
+
+
+
+    <script>
+        var affiliateRateVar = '-Rate55';
+    </script>
+    <script src="js/suRate.js" type="text/javascript" defer></script>
+
+
+    <script src="js/main.js" type="text/javascript" defer></script>
+</head>
+
+<body class="no-user-select">
+
+
+
+<div class="row editor-header">
+    <div class="col-sm-3">
+        <a href="/" class="header-logo-a">
+            <img src="https://www.sunfrog.com/images/SunFrogShirts-Logo1.svg" class="header-logo">
+        </a>
+    </div>
+    <div class="col-sm-7">
+        <div class="text-center center-block">
+            <div class="text-center btn-group editor-buttons">
+                <a href="#" type="button" class="btn btn-default editor-button editor-step-1" data-bind="click: set(steps.goto,0), css:{'active': step() == 0}, attr: {'disabled': (step() == 3)? 'disabled' : undefined}">
+							<span class="button-text">
+								<span class="editor-step">1</span> Create Your T-Shirt
+							</span>
+                </a>
+                <a href="#" type="button" class="btn btn-default editor-button editor-step-2" data-bind="click: set(steps.goto,1), css:{'active': step() == 1}, attr: {'disabled': (step() == 3)? 'disabled' : undefined}">
+							<span class="button-text">
+								<span class="editor-step">2</span> Pricing and Options
+							</span>
+                </a>
+                <a href="#" type="button" class="btn btn-default editor-button editor-step-3" data-bind="click: set(steps.goto,2), css:{'active': step() == 2}, attr: {'disabled': (step() == 3)? 'disabled' : undefined}">
+							<span class="button-text">
+								<span class="editor-step editor-step-active">3</span> Description
+							</span>
+                </a>
+                <!--
+                <a href="#" type="button" class="btn btn-default editor-button editor-step-4" data-bind="click: set(steps.goto,3), css:{'active': step() == 3}">
+                    <span class="button-text">
+                        <span class="editor-step editor-step-active">4</span> Finish!
+                    </span>
+                </a>
+                -->
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <!-- content TBD: next/back buttons? -->
+    </div>
+</div>
+
+<div id="steps" style="transition: all 1s;opacity: 0;">
+    <div class="step" id="step-1" data-bind="visible: step() == 0">
+        <div class="col-md-3">
+            <div role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#tab-text" aria-controls="home" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-text-width"></span> Add Text</a></li>
+                    <li role="presentation"><a href="#tab-image" aria-controls="profile" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-picture"></span> Add/Upload Art</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="panel panel-default tab-pane active" id="tab-text">
+                        <div class="panel-body">
+                            <form role="form">
+                                <!-- ko with: $root.text -->
+                                <div class="form-group">
+                                    <label>Enter Text</label>
+                                    <textarea class="form-control" placeholder="My Shirt Text" data-bind="value: text, valueUpdate: 'keyup', style: {'font-family': font}"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default" data-bind="css:{'active': align() == 'start'}, click: $root.set(align,'start')"><i class="fa fa-align-left"></i></button>
+                                        <button type="button" class="btn btn-default" data-bind="css:{'active': align() == 'middle'}, click: $root.set(align,'middle')"><i class="fa fa-align-center"></i></button>
+                                        <button type="button" class="btn btn-default" data-bind="css:{'active': align() == 'end'}, click: $root.set(align,'end')"><i class="fa fa-align-right"></i></button>
+                                    </div>
+                                    <!-- 											<div class="btn-group" role="group">
+                                                                                    <button type="button" class="btn btn-default" data-bind="css:{'active': style.italic}, click: $root.toggle(style.italic)"><i class="fa fa-italic"></i></button>
+                                                                                    <button type="button" class="btn btn-default" data-bind="css:{'active': style.bold}, click: $root.toggle(style.bold)"><i class="fa fa-bold"></i></button>
+                                                                                </div> -->
+                                </div>
+
+                                <!-- 										<div class="form-group">
+                                                                            <div class="btn-group" role="group">
+                                                                                 <button type="button" class="btn btn-default" data-bind="css:{'active': style.italic}, click: $root.toggle(style.italic)"><i class="fa fa-italic"></i></button>
+                                                                                <button type="button" class="btn btn-default" data-bind="css:{'active': style.bold}, click: $root.toggle(style.bold)"><i class="fa fa-bold"></i></button>
+                                                                                 <button type="button" class="btn btn-default" data-bind="css:{'active': style.strikethrough}, click: $root.toggle(style.strikethrough)"><i class="fa fa-strikethrough"></i></button>
+                                                                                 <button type="button" class="btn btn-default" data-bind="css:{'active': style.underline}, click: $root.toggle(style.underline)"><i class="fa fa-underline"></i></button>
+                                                                            </div>
+                                                                        </div> -->
+
+                                <div class="form-group">
+                                    <label>Choose font</label>
+                                    <div id="font-picker" class="font-picker form-control">
+                                        <span data-bind="attr{ 'style':$root.fonts.setFontChoiceStyle(font()) }, html: $root.text.font().name"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="inline-block">Text Color</label>
+                                    <div class="picker-wrapper" data-toggle="tooltip" data-placement="top" title="Text Color">
+                                        <input type="color" class="form-control" data-bind="value: fill" id="inpTextColor">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="inline-block">Text Outline</label>
+                                    <!--</div>-->
+
+                                    <!--<div class="form-group col-xs-6" style="padding-left: 0px;">-->
+                                    <select class="form-control inline-block" data-bind="foreach: $root.outlines, value: outline">
+                                        <option data-bind="text: title, attr:{value: value}"></option>
+                                    </select>
+                                    <div class="picker-wrapper" data-toggle="tooltip" data-placement="top" title="Text Outline Color">
+                                        <input class="form-control" type="color" data-bind="value: outlineColor" id="inpTextOutlineColor">
+                                    </div>
+                                </div>
+
+                                <!--
+                                <div class="form-group col-xs-6" style="padding-right: 0px;">
+                                    <input class="form-control" type="color" data-bind="value: outlineColor">
+                                </div>
+                                -->
+                                <!-- /ko -->
+
+                                <!-- ko with: $root.general -->
+                                <div class="form-group col-xs-12" style="padding: 0px;margin: 0px;">
+                                    <div class="checkbox" data-bind="css: {'disabled': (obj() == null)}">
+                                        <label>
+                                            <input type="checkbox" data-bind="checked: snapX">
+                                            Snap to Horizontal Center
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-xs-12" style="padding: 0px;margin: 0px;">
+                                    <div class="checkbox" data-bind="css: {'disabled': (obj() == null)}">
+                                        <label>
+                                            <input type="checkbox" data-bind="checked: snapY">
+                                            Snap to Vertical Center
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="">
+                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Flip Horizontal" data-bind="css: {'disabled': (obj() == null)}, click: flip.x">
+                                            <i class="fa fa-caret-right"></i><span class="vertical-line"></span><i class="fa fa-caret-left"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-default flip-vertical" data-toggle="tooltip" data-placement="top" title="Flip Vertical" data-bind="css: {'disabled': (obj() == null)}, click: flip.y">
+                                            <i class="fa fa-caret-down"></i><span class="horizontal-line"></span><i class="fa fa-caret-up"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Duplicate" data-bind="css: {'disabled': (obj() == null)}, click: duplicate">
+                                            <i class="fa fa-copy"></i><!--Duplicate-->
+                                        </button>
+                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Center" data-bind="css: {'disabled': (obj() == null)}, click: center.x.bind(null,false,false)">
+                                            <i class="fa fa-align-center"></i><!--Center-->
+                                        </button>
+                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Send to Back" data-bind="css: {'disabled': (obj() == null)}, click: back">
+                                            <i class="fa fa-arrow-down"></i><!--Send Back-->
+                                        </button>
+                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Bring to Front" data-bind="css: {'disabled': (obj() == null)}, click: forward">
+                                            <i class="fa fa-arrow-up"></i><!--Bring Forward-->
+                                        </button>
+                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Rotate" data-bind="css: {'disabled': (obj() == null)}, click: rotate.right">
+                                            <i class="fa fa-rotate-right"></i><!--Rotate-->
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /ko -->
+                            </form>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="panel panel-default tab-pane" id="tab-image" data-bind="with: uploads">
+                        <div class="panel-body text-center center-block">
+                            <div id="drop-zone" class="drop-zone" class="panel-body">
+                                Drag &amp; Drop Images Here<br>
+                                (.svg, .png, .jpg only)
+                            </div>
+                            <div>
+                                <input id="fileInput" type="file" mutiple="false" style="display:none;">
+                                <button id="fileInputButton" class="btn btn-success btn-lg text-center" style="margin-top:10px;"><i class="fa fa-upload"></i> Choose File</button>
+                            </div>
+                            <!-- ko foreach: uploads -->
+                            <div class="upload" data-bind="click: $parent.select, css:{'svg': type == 'svg', 'image': type == 'image'}">
+                                <!-- ko if: type == 'svg' -->
+                                <div style="width: 100%; height: 100%;" data-bind="html: data"></div>
+                                <!-- /ko -->
+                                <!-- ko if: type == 'image' -->
+                                <img style="width: 100%; height: 100%;" data-bind="attr:{'src': data}">
+                                <!-- /ko -->
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default product-wrapper">
+                <div class="panel-body product-view" id="editor">
+                    <!-- svg editor -->
+                    <div id="front" data-bind="css:{'visible': svg.side()}">
+
+                    </div>
+                    <div id="back" data-bind="css:{'visible': !svg.side()}">
+
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-sm side-switcher" data-bind="'visible': (svg.allowBack() && svg.allowFront())? true : false, click: svg.flip"><i class="fa fa-refresh"></i> See <span data-bind="text: (svg.side())? svg.sideNameDefault : svg.sideNameFlipped"></span></button>
+
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <label>Select Shirt Style</label>
+                    <select class="form-control" data-bind="foreach: products.products, value: svg.selectedShirt">
+                        <!-- ko if: isEnabled -->
+                        <option data-bind="text: description, value: id"></option>
+                        <!-- /ko -->
+                    </select>
+                    <!-- ko if: products.getProduct(svg.selectedShirt()) -->
+                    <div class="shirt-color-panel" data-bind="foreach: products.getProduct(svg.selectedShirt()).colors">
+                        <!-- ko if: texture == '' -->
+                        <div class="shirt-color" data-bind="style: {'background-color': value}, css: {'selected': $root.svg.selectedColor() == id}, click: $root.set($root.svg.selectedColor,id), attr:{'title': name, 'color-name': name}" data-toggle="tooltip" data-placement="top"></div>
+                        <!-- /ko -->
+                        <!-- ko if: texture !== '' -->
+                        <div class="shirt-color" data-bind="style: {'background-image': 'url('+texture+')'}, css: {'selected': $root.svg.selectedColor() == id}, click: $root.set($root.svg.selectedColor,id), attr:{'title': name, 'color-name': name}" style="background-size: 200px 200px;" data-toggle="tooltip" data-placement="top"></div>
+                        <!-- /ko -->
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <div class="panel panel-danger" style="" data-bind="visible: editor.message">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> WARNING
+                </div>
+                <div class="panel-body">
+                    Image or Text is outside the boundary. Anything placed outside the boundary will be hidden in the final design
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-success btn-lg next" data-bind="click: set(steps.goto,1)">Next <i class="fa fa-angle-right"></i></button>
+    </div>
+    <div class="step" id="step-2" data-bind="visible: step() == 1">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Add Additional Styles and Colors</h3>
+                    <small><i>Limit 5 per style</i></small>
+
+                    <ul class="list-group" data-bind="foreach: shirtData.products">
+                        <li class="list-group-item" data-bind="event: {mouseover: $root.set($root.products.shirtData.activeStyleID,id)}">
+                            <span class="glyphicon glyphicon-remove remove-style pull-right" data-bind="click: $root.products.shirtData.removeStyle, visible: $root.shirtData.products().length > 1"></span>
+                            <div style="display: none;" class="input-group pull-right" style="width: 110px;">
+                                <span class="input-group-addon">$</span>
+                                <input class="form-control" type="number" data-bind="value: price, attr: {min: minPrice}" disabled>
+                            </div>
+                            <h4 data-bind="text: $root.products.getProduct(id).description"></h4>
+                            <div class="style-colors">
+                                <!-- ko foreach: colors -->
+                                <!-- ko if: color.texture == '' -->
+                                <div class="shirt-color style-color" data-bind="style: {'background-color': color.value, 'color': color.value}, attr:{'title': color.name, 'color-name': color.name}, event: {mousedown: $root.set($root.products.shirtData.activeColorID,id)}, click: $root.products.shirtData.selectColor, css:{selected: $root.products.shirtData.selectedColor() == color.id && $root.products.shirtData.selectedStyle() == style.id}"></div>
+                                <!-- /ko -->
+                                <!-- ko if: color.texture !== '' -->
+                                <div class="shirt-color style-color" data-bind="style: {'background-image': 'url('+color.texture+')', color: 'white'}, attr:{'title': color.name, 'color-name': color.name}, event: {mousedown: $root.set($root.products.shirtData.activeColorID,id)}, click: $root.products.shirtData.selectColor, css:{selected: $root.products.shirtData.selectedColor() == color.id && $root.products.shirtData.selectedStyle() == style.id}" style="background-size: 200px 200px;"></div>
+                                <!-- /ko -->
+                                <!-- /ko -->
+                                <button class="add-color btn btn-default btn-tiny" data-bind="visible: colors().length < (( page.products.getProduct(id).colors.length >= 5 )? 5 : page.products.getProduct(id).colors.length)"><span class="glyphicon glyphicon-plus"></span></button>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <button class="btn btn-default btn-tiny" id="add-style" data-bind="visible: shirtData.products().length < page.svg.artboardCount()">Add style</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6 hidden-xs">
+            <div class="panel panel-default product-wrapper">
+                <div class="panel-body product-view" id="step-2-svgs">
+                    <div class="front-svg" data-bind="visible: svg.viewingSide(), html: svg.frontSVG().replace(new RegExp(svg.frontSVGID(),'g'),'svg-1')"></div>
+                    <div class="back-svg" data-bind="visible: !svg.viewingSide(), html: svg.backSVG().replace(new RegExp(svg.backSVGID(),'g'),'svg-1')"></div>
+                </div>
+
+                <button class="btn btn-primary btn-sm side-switcher" data-bind="'visible': (svg.allowBack() && svg.allowFront())? true : false, click: toggle(svg.viewingSide)"><i class="fa fa-refresh"></i> See <span data-bind="text: (svg.viewingSide())? svg.sideNameDefault : svg.sideNameFlipped"></span></button>
+
+            </div>
+        </div>
+
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">&nbsp;</div>
+
+        <button class="btn btn-default btn-lg back" data-bind="click: set(steps.goto,0)"><i class="fa fa-angle-left"></i> Back</button>
+        <button class="btn btn-success btn-lg next" data-bind="click: set(steps.goto,2)">Next <i class="fa fa-angle-right"></i></button>
+    </div>
+    <div class="step" id="step-3" data-bind="visible: step() == 2">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form id="shirtData" role="form" data-bind="with: shirtData">
+                        <div id="shirtData-title" class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-control" maxlength="100" data-bind="value: title">
+                        </div>
+                        <div id="shirtData-category" class="form-group">
+                            <label>Category</label>
+
+
+
+
+                            <select class="form-control" id="shirt-categories" name="shirt-categories" data-bind="value: category">
+                                <option value="">--Select--</option>
+
+                                <option value="52">Automotive</option>
+
+                                <option value="76">Birth Years</option>
+
+                                <option value="78">Drinking</option>
+
+                                <option value="25">Events</option>
+
+                                <option value="26">Faith</option>
+
+                                <option value="61">Fitness</option>
+
+                                <option value="19">Funny</option>
+
+                                <option value="13">Gamer</option>
+
+                                <option value="24">Geek-Tech</option>
+
+                                <option value="82">Hobby</option>
+
+                                <option value="35">Holidays</option>
+
+                                <option value="79">Jobs</option>
+
+                                <option value="43">LifeStyle</option>
+
+                                <option value="12">Movies</option>
+
+                                <option value="71">Music</option>
+
+                                <option value="75">Names</option>
+
+                                <option value="81">Outdoor</option>
+
+                                <option value="62">Pets</option>
+
+                                <option value="17">Political</option>
+
+                                <option value="27">Sports</option>
+
+                                <option value="77">States</option>
+
+                                <option value="34">TV Shows</option>
+
+                                <option value="11">Zombies</option>
+
+                            </select>
+
+                        </div>
+                        <div id="shirtData-description" class="form-group">
+                            <label>Description <small>(Up to 30 words)</small></label>
+                            <textarea class="form-control" placeholder="Provide a detailed product description" data-bind="value: description"></textarea>
+                        </div>
+                        <div id="shirtData-tags" class="form-group">
+                            <label>Keyword Tags <small>(Up to 3)</small></label>
+                            <input class="form-control" placeholder="Add tags that are used for site searching" data-bind="value: tags" data-role="tagsinput-init"/>
+                        </div>
+                    </form>
+
+                    <div id="shirtData-terms" class="checkbox">
+                        <label>
+                            <input type="checkbox"  data-bind="checked: shirtData.terms">
+                            I agree to the <a href="https://www.sunfrog.com/legal/terms/artist-agreement.cfm" target="_blank">Terms and Conditions</a>
+                            <br><br>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 hidden-xs">
+            <div class="panel panel-default product-wrapper">
+                <div class="panel-body product-view">
+                    <div class="front-svg" data-bind="visible: svg.viewingSide(), html: svg.frontSVG().replace(new RegExp(svg.frontSVGID(),'g'),'svg-2')"></div>
+                    <div class="back-svg" data-bind="visible: !svg.viewingSide(), html: svg.backSVG().replace(new RegExp(svg.backSVGID(),'g'),'svg-2')"></div>
+                </div>
+
+                <button class="btn btn-primary btn-sm side-switcher" data-bind="'visible': (svg.allowBack() && svg.allowFront())? true : false, click: toggle(svg.viewingSide)"><i class="fa fa-refresh"></i> See <span data-bind="text: (svg.viewingSide())? svg.sideNameDefault : svg.sideNameFlipped"></span></button>
+
+            </div>
+        </div>
+
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">&nbsp;</div>
+
+        <button class="btn btn-default btn-lg back" data-bind="click: set(steps.goto,1)"><i class="fa fa-angle-left"></i> Back</button>
+        <button class="btn btn-success btn-lg next" data-bind="click: set(steps.goto,3)">Finish <i class="fa fa-angle-right"></i></button>
+    </div>
+    <div class="step user-select" id="step-4" data-bind="visible: step() == 3 && !page.serverResponse.finalRedirect">
+        <div class="col-md-6" data-bind="with: serverResponse">
+            <h1 class="text-success">Congratulations!<br><small>You've created a shirt design! See it here</small></h1>
+            <h4><a href="#" data-bind="attr:{'href': link}, text: link" target="_blank">link to the shirt</a></h4>
+            <p>Want to create another design?</p>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success btn-lg" data-bind="click: $root.editor.resetEditor">Yes!</button>
+                <a href="#" class="btn btn-default btn-lg" data-bind="attr:{'href': homeLink}" target="_self">Edit Design</a>
+            </div>
+
+        </div>
+        <div class="col-md-6" data-bind="foreach: serverResponse.shirts">
+            <div class="col-xs-4 col-md-4">
+                <a class="shirt thumbnail" data-bind="attr:{href: '//www.sunfrog.com/'+pageName}" target="_blank">
+                    <img class="front" data-bind="attr:{src: (imageFront == '')? imageBack : imageFront}">
+                    <img class="back" data-bind="attr:{src: (imageBack == '')? imageFront : imageBack}">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="font-modal" class="font-modal">
+    <!-- category selector -->
+    <select id="font-category-select" class="font-category-select" data-bind="foreach: fonts.fonts()">
+        <option data-bind="value: $index, text: category"></option>
+    </select>
+
+    <div class="font-choice-container" data-bind="foreach: fonts.fonts">
+        <div class="font-sheet" data-bind="foreach: fonts">
+            <div class="font-choice"
+                 data-bind="attr{
+									'style': $root.fonts.setFontChoiceStyle($data)
+									}, click: $root.fonts.select, html:name"></div>
+        </div>
+    </div>
+</div>
+
+<!-- modals -->
+<div id="dnd-error" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Wrong File Type</h4>
+            </div>
+            <div class="modal-body">
+                <p>Cant Read those types of files</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="no-design-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">No Design</h4>
+            </div>
+            <div class="modal-body">
+                <p>Before you can continue you must create a design.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="server-error" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Server Error</h4>
+            </div>
+            <div class="modal-body">
+                <p class="desc"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- popover content -->
+<div id="temp" style="display:none;">
+    <div id="products" class="list-group" data-bind="foreach: products.products">
+        <!-- ko if: !$root.products.shirtData.getStyle(id) && artboardTypes.artboardTypeId == $root.svg.artboardTypeId() -->
+        <a href="#" class="shirt-style list-group-item" data-bind="click: $root.products.shirtData.addStyle">
+            <h4 class="list-group-item-heading" data-bind="text: description"></h4>
+            <p class="list-group-item-text"></p>
+        </a>
+        <!-- /ko -->
+    </div>
+    <div id="colors">
+        <!-- ko if: products.getProduct(products.shirtData.activeStyleID()) -->
+        <!-- ko foreach: products.getProduct(products.shirtData.activeStyleID()).colors -->
+        <!-- ko if: !$root.products.shirtData.getColor($root.products.shirtData.activeStyleID(),id) -->
+        <!-- ko if: texture == '' -->
+        <div class="shirt-color" data-bind="style: {'background-color': value}, attr:{'title': name}, click: $root.products.shirtData.addColor.bind($data,$root.products.shirtData.activeStyleID())"></div>
+        <!-- /ko -->
+        <!-- ko if: texture !== '' -->
+        <div class="shirt-color" data-bind="style: {'background-image': 'url('+texture+')'}, attr:{'title': name}, click: $root.products.shirtData.addColor.bind($data,$root.products.shirtData.activeStyleID())" style="background-size: 200px 200px;"></div>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- /ko -->
+    </div>
+    <div id="colors-change">
+        <!-- ko if: products.shirtData.getStyle(products.shirtData.activeStyleID()) -->
+        <!-- ko if: products.shirtData.getStyle(products.shirtData.activeStyleID()).colors()[0] -->
+        <a href="#" class="pull-right" data-bind="click: $root.products.shirtData.removeColor.bind( $root.products.shirtData.getColor( $root.products.shirtData.activeStyleID(), $root.products.shirtData.activeColorID() ), $root.products.shirtData.activeStyleID() ),visible: products.shirtData.getStyle(products.shirtData.activeStyleID()).colors()[0].id !== $root.products.shirtData.activeColorID()" style="position: absolute;color: red; text-decoration: underline;  top: 5px;right: 10px;">Remove</a>
+        <!-- /ko -->
+        <!-- /ko -->
+
+        <!-- ko if: products.getProduct(products.shirtData.activeStyleID()) -->
+        <!-- ko foreach: products.getProduct(products.shirtData.activeStyleID()).colors -->
+        <!-- ko if: !$root.products.shirtData.getColor($root.products.shirtData.activeStyleID(),id) -->
+        <!-- ko if: texture == '' -->
+        <div class="shirt-color" data-bind="style: {'background-color': value}, attr:{'title': name}, click: $root.products.shirtData.changeColor.bind( $data, $root.products.shirtData.activeStyleID(), $root.products.shirtData.activeColorID() )"></div>
+        <!-- /ko -->
+        <!-- ko if: texture !== '' -->
+        <div class="shirt-color" data-bind="style: {'background-image': 'url('+texture+')'}, attr:{'title': name}, click: $root.products.shirtData.changeColor.bind( $data, $root.products.shirtData.activeStyleID(), $root.products.shirtData.activeColorID() )" style="background-size: 200px 200px;"></div>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- /ko -->
+    </div>
+    <div data-bind="foreach: products.products">
+        <img data-bind="attr:{'src': imageFront}">
+        <img data-bind="attr:{'src': imageBack}">
+    </div>
+</div>
+<div id="export-svg" style="position: absolute;top: -2500px;"></div>
+<div id="loading">
+    <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
+</div>
+</body>
+
+
+</html>
