@@ -7,31 +7,187 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" href="css/BMC.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/font-awesome.css">
+
 </head>
-<body clas="myCart">
+<body class="account">
 <div class="container">
     <div class="row Change-Passwo">
-        <p class="linkTop">Home / My Cart</p>
+        <p class="linkTop">Home / Change Password</p>
     </div>
-    <div class=" col-lg-8">
-        <p class="item">
-        <h2>My Cart </h2></p>
+    <div class="col-lg-8">
+        <h3>My Cart <span>(2 Items)</span></h3>
         <div class="form-horizontal">
             <div class="form-group">
-                <div class="container-item">
-                    <img class="imgItem" src="images/delivery.svg">
-                    <h2 class="tittleItem">Garden Chairs</h2>
-                </div>
+                <div class="row row-item ">
+                    <div class="col-lg-2 col-xs-3 ">
+                        <img class="imgItem" src="images/green-chair.jpg">
 
+                    </div>
+                    <div class="col-lg-5 col-xs-4">
+                        <div class="nameItem">
+                            <h3>Garden Chairs</h3>
+                            <p class="des">Althusser Competing Interpellations And The Third Text</p>
+                        </div>
+                        <div class="remove-icon">
+                            <a href="#"><img src="images/icon/iconRemove.svg">&nbspRemove</a>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-1 col-xs-2">
+                        <p class="titleRow-left">Price</p>
+                        <p class="price">$200</p>
+                    </div>
+                    <div class="col-lg-2 col-xs-1">
+                        <p class="titleRow-right">Qty</p>
+                        <div class="input-group spinner pull-right">
+                            <input type="text" class="form-control" value="1">
+                            <div class="input-group-btn-vertical">
+                                <button class="btn btn-default" type="button"><i
+                                        class="fa fa-caret-up"></i></button>
+                                <button class="btn btn-default" type="button"><i
+                                        class="fa fa-caret-down"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-xs-2">
+                        <p class="titleRow-right">Amount</p>
+                        <p class="qty">$200</p>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row row-item ">
+                    <div class="col-lg-2 col-xs-3 ">
+                        <img class="imgItem" src="images/green-chair.jpg">
+
+                    </div>
+                    <div class="col-lg-5 col-xs-4">
+                        <div class="nameItem">
+                            <h3>Garden Chairs</h3>
+                            <p class="des">Althusser Competing Interpellations And The Third Text</p>
+                        </div>
+                        <div class="remove-icon">
+                            <a href="#"><img src="images/icon/iconRemove.svg">&nbspRemove</a>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-1 col-xs-2">
+                        <p class="titleRow-left">Price</p>
+                        <p class="price">$200</p>
+                    </div>
+                    <div class="col-lg-2 col-xs-1">
+                        <p class="titleRow-right">Qty</p>
+                        <div class="input-group spinner pull-right">
+                            <input type="text" class="form-control" value="1">
+                            <div class="input-group-btn-vertical">
+                                <button class="btn btn-default" type="button"><i
+                                        class="fa fa-caret-up"></i></button>
+                                <button class="btn btn-default" type="button"><i
+                                        class="fa fa-caret-down"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-xs-2">
+                        <p class="titleRow-right">Amount</p>
+                        <p class="qty">$200</p>
+                    </div>
+                </div>
+                <hr/>
             </div>
+
         </div>
 
-    </div>
-    <div class="col-lg-4">
+        <div class="form-horizontal customerInfor">
+            <h3>Customer Information</h3>
+            <div class="form-group">
+                <div class="col-lg-1"> <img src="images/icon/user_anonymous_yellow_disabled.png" height="256" width="256"/> </div>
+                <div class="col-lg-11"> <p>NHAN NGUYEN<span>(pyro1691@gmail.com)</span> </p>
+                    <a href="#">Log Out</a></div>
+            </div>
+            <h3>Shipping Address</h3>
+            <div class="form-group">
+                <div class="col-lg-6">
+                    <input type="text" class="form-control input" value="Nhan" required>
+                    <label class="account">First name</label>
+                </div>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control input" required>
+                    <label class="account">Last name</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <input type="text" class="form-control input" required>
+                    <label class="account">Phone</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <input type="text" class="form-control input" required>
+                    <label class="account">Address</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-6">
+                    <input type="text" class="form-control input" value="United State" required>
+                    <label class="account">Country</label>
+                </div>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control input" required>
+                    <label class="account">State</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-6">
+                    <input type="text" class="form-control input" required>
+                    <label class="account">Zip Code</label>
+                </div>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control input" required>
+                    <label class="account">City</label>
+                </div>
+            </div>
+            <h3>Comment</h3>
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <textarea class="form-control input" rows="7"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-6">
+                    <input type="button" class="form-control button" value="PLACE ORDER">
 
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <p class="ToS">By placing your order, you agreed with our
+                        <a href="#">Term of Service</a> and <a href="">Privacy Policy</a></p>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="col-lg-4 summary">
+        <h3>Summary</h3>
+        <div class="row-item ">
+            <div class="text-left">
+                <p>Items <b class="pull-right">$200</b></p>
+                <p>Estimated Shipping Fee <b class="pull-right">+$100</b></p>
+            </div>
+            <hr/>
+            <p class="GrandTotal">Grand Total<b class="GrandTotalNumber pull-right ">$300</b></p>
+            <div class="form-group">
+                <input type="button" class="form-control  button continue" value="CONTINUE SHOPPING">
+                <input type="button" class="form-control button" value="PLACE ORDER">
+                <p class="ToS">By placing your order, you agreed with our
+                    <a href="#">Term of Service</a> and <a href="">Privacy Policy</a></p>
+            </div>
+        </div>
+    </div>
+
 </div>
-
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/BMC.js"></script>
 </body>
 </html>
